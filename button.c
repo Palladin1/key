@@ -28,6 +28,9 @@ extern enuum ButtonsId;
 BUTTON_T *Buttons[ButtonsId];
 
 
+ButtonsCallback(ButtonsId id);
+
+
 #if  (BUTTON_USE_LONG_PRESSED == 1)
     const BASE_T *Counter_Long_Mark_Ms;
 void ButtonsCreate (ButtonsId id, const BASE_T *counter_mark_ms, const BASE_T *counter_long_mark_ms, BOOL (* pin_chack) (void), void (* pin_init) (void)) 
@@ -70,6 +73,10 @@ void ButtonsPolling (BASE_T timer_period_ms)
 		    if (Buttons[buttons_number].Counter >= Buttons[buttons_number].Counter_Mark) {
 			    if (Buttons[buttons_number].Condition_Current != PRESSED) {
 				    Buttons[buttons_number].Condition_Current = PRESSED;
+					
+					#if  (BUTTON_CALLBACK == 1) 
+					ButtonsCallback(buttons_number);
+					#endif
 				}
 			} else {
 			    Buttons[buttons_number].Counter += timer_period_ms;
@@ -78,6 +85,10 @@ void ButtonsPolling (BASE_T timer_period_ms)
 		    if (Buttons[buttons_number].Counter == 0) {
 			    if (Buttons[buttons_number].Condition_Current != RELEASED) {
 			        Buttons[buttons_number].Condition_Current = RELEASED;
+					
+					#if  (BUTTON_CALLBACK == 1) 
+					ButtonsCallback(buttons_number);
+					#endif
 				}
 			} else {
 			    Buttons[buttons_number].Counter -= timer_period_ms;
