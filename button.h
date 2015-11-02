@@ -8,12 +8,13 @@
 #define  BUTTON_H
 
 
-#include  "uKernel/types.h"
+#include  "types.h"
 
 
 #define  BUTTON_LONG_PRESSED     0                            /* If to use should to set 1 */
-#define  BUTTON_CALLBACK         0
+#define  BUTTON_CALLBACK         1
 //#define  USE_LONG_RELEASED    0                            /* If to use should to set 1 */   
+
 
 enum BUTTON_CONDITION {
     RELEASED,  
